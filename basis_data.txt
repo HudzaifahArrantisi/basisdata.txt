@@ -1,0 +1,116 @@
+1. Buatlah database baru dengan nama: dbpegawai
+
+2. Masuk ke dbpegawai dengan perintah USE 
+
+3. id int primary key auto_increment
+nama varchar(30) dengan contraint: wajib diisi dan tidak boleh sama
+4. Tampilkan deskripsi tabel divisi
+
+5. Buatlah tabel baru dengan nama: jabatan, dengan kolom-kolom sbb:
+id int primary key auto_increment
+nama varchar(30) dengan contraint: wajib diisi dan tidak boleh sama
+
+6. Tampilkan deskripsi tabel jabatan
+
+7. Buatlah tabel baru dengan nama: pegawai, dengan kolom-kolom sbb:
+id int primary key auto_increment
+nip char dengan constraint: wajib diisi, tidak boleh sama & 5 karakter
+nama varchar dengan constraint: wajib diisi dan maksimal 30 karakter
+gender enum('Laki-Laki','Perempuan') dengan constraint: wajib diisi
+tmp_lahir varchar dengan constraint: wajib diisi dan maksimal 30 karakter
+tgl_lahir date dengan constraint: wajib diisi
+iddivisi int sebagai foreign key, tidak boleh kosong, merujuk ke tabel divisi ke field id
+idjabatan int sebagai foreign key, tidak boleh kosong, merujuk ke tabel jabatan ke field id
+alamat text
+
+8. Tampilkan deskripsi tabel pegawai 
+
+9. Tampilkan tabel-tabel yang ada di dbpegawai
+
+10. Input data divisi => SDM, Keuangan, Marketing, IT 
+
+11. Tampilkan seluruh data divisi
+
+12. Input data jabatan => Direktur, Manajer, Asisten Manajer, Staff
+
+13. Tampilkan seluruh data jabatan 
+
+14. Input 20 orang pegawai ( 1 divisi 5 orang, untuk gender dan jabatan diacak)
+
+15. Tampilkan seluruh data pegawai
+
+16.  Ubah data 5 orang pegawai (dengan ketentuan ubah 3 kolom(bebas)) 
+
+17. Hapus 2 orang pegawai pegawai terakhir
+
+18. Gunakan alter tabel pada tabel pegawai untuk menambahkan kolom baru berat_badan dengan
+tipe data float wajib diisi, lalu input berat badan semua pegawai secara acak
+
+19. Gunakan alter tabel pada tabel pegawai untuk menambahkan kolom baru umur dengan tipe data
+integer wajib diisi, lalu input umur semua pegawai secara acak
+
+20. Gunakan alter tabel pada tabel pegawai untuk mengubah nama kolom gender menjadi
+jenis_kelamin
+
+21. Tampilkan kolom2 tertentu di tabel pegawai (nip,nama,jenis_kelamin,alamat)
+
+22. Tampilkan baris2 tertentu di tabel pegawai (yang gendernya laki2 saja)
+
+23. Tampilkan baris2 tertentu di tabel pegawai (yang bekerja di divisi IT dan gendernya perempuan)
+
+24. Tampilkan data pegawai yang umurnya di atas 30 tahun dan lahirnya di kota jakarta dengan
+klausa WHERE, AND 
+
+25. Tampilkan data pegawai yang bekerja pada divisi marketing, berumur lebih dari 30 tahun dan
+berjenis kelamin perempuan dengan klausa WHERE, AND
+
+26. Tampilkan data pegawai dengan klausa key (nip)
+
+27. Tampilkan data pegawai dengan klausa non key (gender)
+
+28. Tampilkan data pegawai dengan klausa in (menyebutkan beberapa nip)
+
+29. Tampilkan data pegawai dengan klausa not in (menyebutkan beberapa tempat lahir) 
+
+30. Tampilkan data pegawai berdasarkan nama secara ascending
+
+31. Tampilkan data pegawai dari yang berat badan paling gemuk ke paling kurus 
+
+32. Tampilkan data 5 pegawai teratas gunakan klausa limit
+
+33. Tampilkan data 5 pegawai terbawah gunakan klausa limit offset
+
+34. Tampilkan jumlah pegawai gunakan fungsi aggregrat count
+
+35. Tampilkan nip,nama pegawai, umur yg paling tua gunakan fungsi aggregrat max (kombinasi
+dengan sub query) 
+
+36. Tampilkan nip,nama pegawai, berat_badan yg paling kurus gunakan fungsi aggregrat min
+(kombinasi dengan sub query)
+
+37. Tampilkan data rata2 umur pegawai gunakan fungsi aggregrat avg
+
+38. Tampilkan jumlah data pegawai yang laki2 dan berumur lebih dari 40 tahun dan berjabatan
+Manajer, gunakan fungsi aggregrat count dan klausa AND
+
+39. Tampilkan jumlah data pegawai yang perempuan dan berumur kurang dari 40 tahun dan
+berjabatan Staff, gunakan fungsi aggregrat count dan klausa AND
+
+40. Tampilkan jumlah data pegawai yang perempuan gunakan fungsi aggregrat count 
+
+41. Tampilkan jumlah pegawai yang bekerja di divisi SDM dengan fungsi aggregrat sum dan klausa
+WHERE
+
+42. Tampilkan jumlah pegawai berdasarkan divisi masing2 menggunakan fungsi aggregrat count dan
+klausa group by
+
+43. Tampilkan data jumlah pegawai berdasarkan gender, yg jumlah minimal 10 orang (gunakan
+group by dan having)
+
+44. Cari data pegawai yang berawalan kata Muhammad
+
+45. Cari data pegawai yang berakhiran kata Santoso
+
+46. Cari data pegawai yang mengadung kata Asep
+
+47. Cari data pegawai yang huruf kelimanya huruf S 
