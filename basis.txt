@@ -1,0 +1,471 @@
+1.Buatlah database baru dengan nama: dbpegawai
+>< MariaDB [(none)]> create database  dbpegawai;
+______________________________________________________________________________
+
+2. 2 Masuk ke dbpegawai dengan perintah USE 2
+>< USE dbpegawai;
+
+______________________________________________________________________________
+
+3. Buatlah tabel baru dengan nama: divisi, dengan kolom-kolom sbb:
+id int primary key auto_increment
+nama varchar(30) dengan contraint: wajib diisi dan tidak boleh sama
+
+>< MariaDB [dbpegawai]> CREATE TABLE divisi (
+    ->     id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     nama VARCHAR(30) NOT NULL UNIQUE
+    -> );
+Query OK, 0 rows affected (0.040 sec)
+___________________________________________________
+4.  Tampilkan deskripsi tabel divisi 
+
+>< MariaDB [dbpegawai]> DESCRIBE divisi;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.028 sec)
+
+____________________________________________________
+
+5. Buatlah tabel baru dengan nama: jabatan, dengan kolom-kolom sbb:
+id int primary key auto_increment
+nama varchar(30) dengan contraint: wajib diisi dan tidak boleh sama
+
+>< MariaDB [dbpegawai]> CREATE TABLE jabatan (
+    ->     id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     nama VARCHAR(30) NOT NULL UNIQUE
+    -> );
+Query OK, 0 rows affected (0.071 sec)
+
+_____________________________________________________
+	
+6. Tampilkan deskripsi jabatan
+
+>< MariaDB [dbpegawai]> DESCRIBE jabatan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.018 sec)
+
+_________________________________________________________________________________________________
+
+7. Buatlah tabel baru dengan nama: pegawai, dengan kolom-kolom sbb:
+id int primary key auto_increment
+nip char dengan constraint: wajib diisi, tidak boleh sama & 5 karakter
+nama varchar dengan constraint: wajib diisi dan maksimal 30 karakter
+gender enum('Laki-Laki','Perempuan') dengan constraint: wajib diisi
+tmp_lahir varchar dengan constraint: wajib diisi dan maksimal 30 karakter
+tgl_lahir date dengan constraint: wajib diisi
+iddivisi int sebagai foreign key, tidak boleh kosong, merujuk ke tabel divisi ke field id
+idjabatan int sebagai foreign key, tidak boleh kosong, merujuk ke tabel jabatan ke field id
+alamat text
+
+
+>< MariaDB [dbpegawai]> CREATE TABLE pegawai (
+    ->     id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     nip CHAR(5) NOT NULL UNIQUE,
+    ->     nama VARCHAR(30) NOT NULL,
+    ->     gender ENUM('Laki-Laki', 'Perempuan') NOT NULL,
+    ->     tmp_lahir VARCHAR(30) NOT NULL,
+    ->     tgl_lahir DATE NOT NULL,
+    ->     iddivisi INT NOT NULL,
+    ->     idjabatan INT NOT NULL,
+    ->     alamat TEXT,
+    ->     FOREIGN KEY (iddivisi) REFERENCES divisi(id),
+    ->     FOREIGN KEY (idjabatan) REFERENCES jabatan(id)
+    -> );
+Query OK, 0 rows affected (0.062 sec)
+
+_____________________________________________________________________________________________________
+	
+8.Tampilkan deskripsi tabel pegawai 
+
+>< MariaDB [dbpegawai]> DESCRIBE pegawai;
++-----------+-------------------------------+------+-----+---------+----------------+
+| Field     | Type                          | Null | Key | Default | Extra          |
++-----------+-------------------------------+------+-----+---------+----------------+
+| id        | int(11)                       | NO   | PRI | NULL    | auto_increment |
+| nip       | char(5)                       | NO   | UNI | NULL    |                |
+| nama      | varchar(30)                   | NO   |     | NULL    |                |
+| gender    | enum('Laki-Laki','Perempuan') | NO   |     | NULL    |                |
+| tmp_lahir | varchar(30)                   | NO   |     | NULL    |                |
+| tgl_lahir | date                          | NO   |     | NULL    |                |
+| iddivisi  | int(11)                       | NO   | MUL | NULL    |                |
+| idjabatan | int(11)                       | NO   | MUL | NULL    |                |
+| alamat    | text                          | YES  |     | NULL    |                |
++-----------+-------------------------------+------+-----+---------+----------------+
+9 rows in set (0.025 sec)
+
+____________________________________________________________________________________________________
+
+
+9. Tampilkan tabel-tabel yang ada di dbpegawai
+
+>< MariaDB [dbpegawai]> SHOW TABLES;
++---------------------+
+| Tables_in_dbpegawai |
++---------------------+
+| divisi              |
+| jabatan             | 
+| pegawai             |
++---------------------+
+3 rows in set (0.001 sec)
+
+_____________________________________________________________________________________________________
+
+10. Input data divisi => SDM, Keuangan, Marketing, IT
+
+><  MariaDB [dbpegawai]> INSERT INTO divisi (nama) VALUES
+    -> ('SDM'),
+    -> ('Keuangan'),
+    -> ('Marketing'),
+    -> ('IT');
+Query OK, 4 rows affected (0.074 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+
+______________________________________________________________________________________________________
+
+11. Tampilkan seluruh data divisi 
+
+>< MariaDB [dbpegawai]> SELECT * FROM divisi;
++----+-----------+
+| id | nama      |
++----+-----------+
+|  4 | IT        |
+|  2 | Keuangan  |
+|  3 | Marketing |
+|  1 | SDM       |
++----+-----------+
+4 rows in set (0.001 sec)
+
+
+_____________________________________________________________________________________________________
+
+12. Input data jabatan => Direktur, Manajer, Asisten Manajer, Staff
+
+
+><  MariaDB [dbpegawai]> INSERT INTO jabatan (nama) VALUES
+    -> ('Direktur'),
+    -> ('Manajer'),
+    -> ('Asisten Manajer'),
+    -> ('Staff');
+Query OK, 4 rows affected (0.008 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+____________________________________________________________________________________________________
+
+13.  Tampilkan seluruh data jabatan
+
+>< MariaDB [dbpegawai]> SELECT * FROM jabatan;
++----+-----------------+
+| id | nama            |
++----+-----------------+
+|  3 | Asisten Manajer |
+|  1 | Direktur        |
+|  2 | Manajer         |
+|  4 | Staff           |
++----+-----------------+
+4 rows in set (0.001 sec)
+
+______________________________________________________________________________________________________
+
+14. Input 20 orang pegawai ( 1 divisi 5 orang, untuk gender dan jabatan diacak)
+
+><  MariaDB [dbpegawai]> INSERT INTO pegawai (nip, nama, gender, tmp_lahir, tgl_lahir, iddivisi, idjabatan, alamat) VALUES
+    -> ('10001', 'Ahmad Budiman', 'Laki-Laki', 'Jakarta', '1990-01-01', 1, 1, 'Jl. Merdeka No. 1'),
+    -> ('10002', 'Siti Rahayu', 'Perempuan', 'Bandung', '1991-02-02', 1, 2, 'Jl. Pahlawan No. 2'),
+    -> ('10003', 'Bambang Sutrisno', 'Laki-Laki', 'Surabaya', '1992-03-03', 1, 3, 'Jl. Sudirman No. 3'),
+    -> ('10004', 'Dewi Lestari', 'Perempuan', 'Yogyakarta', '1993-04-04', 1, 4, 'Jl. Gatot Subroto No. 4'),
+    -> ('10005', 'Eko Prasetyo', 'Laki-Laki', 'Semarang', '1994-05-05', 1, 1, 'Jl. Diponegoro No. 5'),
+    -> ('10006', 'Fitriani', 'Perempuan', 'Medan', '1990-06-06', 2, 2, 'Jl. Thamrin No. 6'),
+    -> ('10007', 'Guntur Wibowo', 'Laki-Laki', 'Palembang', '1991-07-07', 2, 3, 'Jl. Kebon Sirih No. 7'),
+    -> ('10008', 'Hesti Purnama', 'Perempuan', 'Makassar', '1992-08-08', 2, 4, 'Jl. Hayam Wuruk No. 8'),
+    -> ('10009', 'Irfan Maulana', 'Laki-Laki', 'Balikpapan', '1993-09-09', 2, 1, 'Jl. Asia Afrika No. 9'),
+    -> ('10010', 'Joko Susilo', 'Laki-Laki', 'Samarinda', '1994-10-10', 2, 2, 'Jl. Pemuda No. 10'),
+    -> ('10011', 'Kartika Sari', 'Perempuan', 'Denpasar', '1990-11-11', 3, 3, 'Jl. Raya Kuta No. 11'),
+    -> ('10012', 'Luki Setiawan', 'Laki-Laki', 'Malang', '1991-12-12', 3, 4, 'Jl. Ijen No. 12'),
+    -> ('10013', 'Maya Indah', 'Perempuan', 'Bogor', '1992-01-13', 3, 1, 'Jl. Suryakencana No. 13'),
+    -> ('10014', 'Nanda Pratama', 'Laki-Laki', 'Tangerang', '1993-02-14', 3, 2, 'Jl. BSD No. 14'),
+    -> ('10015', 'Oki Nugraha', 'Laki-Laki', 'Bekasi', '1994-03-15', 3, 3, 'Jl. Ahmad Yani No. 15'),
+    -> ('10016', 'Putri Ayu', 'Perempuan', 'Depok', '1990-04-16', 4, 4, 'Jl. Margonda No. 16'),
+    -> ('10017', 'Rudi Hartono', 'Laki-Laki', 'Cirebon', '1991-05-17', 4, 1, 'Jl. Siliwangi No. 17'),
+    -> ('10018', 'Sari Dewi', 'Perempuan', 'Pekanbaru', '1992-06-18', 4, 2, 'Jl. Sudirman No. 18'),
+    -> ('10019', 'Tono Wijaya', 'Laki-Laki', 'Manado', '1993-07-19', 4, 3, 'Jl. Sam Ratulangi No. 19'),
+    -> ('10020', 'Umi Kulsum', 'Perempuan', 'Padang', '1994-08-20', 4, 4, 'Jl. Imam Bonjol No. 20');
+Query OK, 20 rows affected (0.018 sec)
+_____________________________________________________________________________________________________
+
+15. Tampilkan seluruh data pegawai 
+
+><  MariaDB [dbpegawai]> SELECT * FROM pegawai;
++----+-------+------------------+-----------+------------+------------+----------+-----------+--------------------------+
+| id | nip   | nama             | gender    | tmp_lahir  | tgl_lahir  | iddivisi | idjabatan | alamat                   |
++----+-------+------------------+-----------+------------+------------+----------+-----------+--------------------------+
+|  1 | 10001 | Ahmad Budiman    | Laki-Laki | Jakarta    | 1990-01-01 |        1 |         1 | Jl. Merdeka No. 1        |
+|  2 | 10002 | Siti Rahayu      | Perempuan | Bandung    | 1991-02-02 |        1 |         2 | Jl. Pahlawan No. 2       |
+|  3 | 10003 | Bambang Sutrisno | Laki-Laki | Surabaya   | 1992-03-03 |        1 |         3 | Jl. Sudirman No. 3       |
+|  4 | 10004 | Dewi Lestari     | Perempuan | Yogyakarta | 1993-04-04 |        1 |         4 | Jl. Gatot Subroto No. 4  |
+|  5 | 10005 | Eko Prasetyo     | Laki-Laki | Semarang   | 1994-05-05 |        1 |         1 | Jl. Diponegoro No. 5     |
+|  6 | 10006 | Fitriani         | Perempuan | Medan      | 1990-06-06 |        2 |         2 | Jl. Thamrin No. 6        |
+|  7 | 10007 | Guntur Wibowo    | Laki-Laki | Palembang  | 1991-07-07 |        2 |         3 | Jl. Kebon Sirih No. 7    |
+|  8 | 10008 | Hesti Purnama    | Perempuan | Makassar   | 1992-08-08 |        2 |         4 | Jl. Hayam Wuruk No. 8    |
+|  9 | 10009 | Irfan Maulana    | Laki-Laki | Balikpapan | 1993-09-09 |        2 |         1 | Jl. Asia Afrika No. 9    |
+| 10 | 10010 | Joko Susilo      | Laki-Laki | Samarinda  | 1994-10-10 |        2 |         2 | Jl. Pemuda No. 10        |
+| 11 | 10011 | Kartika Sari     | Perempuan | Denpasar   | 1990-11-11 |        3 |         3 | Jl. Raya Kuta No. 11     |
+| 12 | 10012 | Luki Setiawan    | Laki-Laki | Malang     | 1991-12-12 |        3 |         4 | Jl. Ijen No. 12          |
+| 13 | 10013 | Maya Indah       | Perempuan | Bogor      | 1992-01-13 |        3 |         1 | Jl. Suryakencana No. 13  |
+| 14 | 10014 | Nanda Pratama    | Laki-Laki | Tangerang  | 1993-02-14 |        3 |         2 | Jl. BSD No. 14           |
+| 15 | 10015 | Oki Nugraha      | Laki-Laki | Bekasi     | 1994-03-15 |        3 |         3 | Jl. Ahmad Yani No. 15    |
+| 16 | 10016 | Putri Ayu        | Perempuan | Depok      | 1990-04-16 |        4 |         4 | Jl. Margonda No. 16      |
+| 17 | 10017 | Rudi Hartono     | Laki-Laki | Cirebon    | 1991-05-17 |        4 |         1 | Jl. Siliwangi No. 17     |
+| 18 | 10018 | Sari Dewi        | Perempuan | Pekanbaru  | 1992-06-18 |        4 |         2 | Jl. Sudirman No. 18      |
+| 19 | 10019 | Tono Wijaya      | Laki-Laki | Manado     | 1993-07-19 |        4 |         3 | Jl. Sam Ratulangi No. 19 |
+| 20 | 10020 | Umi Kulsum       | Perempuan | Padang     | 1994-08-20 |        4 |         4 | Jl. Imam Bonjol No. 20   |
++----+-------+------------------+-----------+------------+------------+----------+-----------+--------------------------+
+20 rows in set (0.000 sec)
+
+____________________________________________________________________________________________________
+
+
+
+16. Ubah data 5 orang pegawai (dengan ketentuan ubah 3 kolom(bebas)) 
+
+>< MariaDB [dbpegawai]> UPDATE pegawai
+    -> SET
+    ->     nama = 'Ahmad Santoso',
+    ->     gender = 'Perempuan',
+    ->     alamat = 'Jl. Kebon Jeruk No. 10'
+    -> WHERE nip = '10001';
+Query OK, 1 row affected (0.014 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbpegawai]>
+MariaDB [dbpegawai]> UPDATE pegawai
+    -> SET
+    ->     nama = 'Fitriani Sari',
+    ->     gender = 'Laki-Laki',
+    ->     alamat = 'Jl. Sudirman No. 20'
+    -> WHERE nip = '10006';
+Query OK, 1 row affected (0.007 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbpegawai]>
+MariaDB [dbpegawai]> UPDATE pegawai
+    -> SET
+    ->     nama = 'Kartika Dewi',
+    ->     gender = 'Laki-Laki',
+    ->     alamat = 'Jl. Pantai Kuta No. 15'
+    -> WHERE nip = '10011';
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbpegawai]>
+MariaDB [dbpegawai]> UPDATE pegawai
+    -> SET
+    ->     nama = 'Putri Indah',
+    ->     gender = 'Laki-Laki',
+    ->     alamat = 'Jl. Raya Depok No. 25'
+    -> WHERE nip = '10016';
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbpegawai]>
+MariaDB [dbpegawai]> UPDATE pegawai
+    -> SET
+    ->     nama = 'Umi Fatimah',
+    ->     gender = 'Laki-Laki',
+    ->     alamat = 'Jl. Padang No. 30'
+    -> WHERE nip = '10020';
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+_______________________________________________________________________________________________________________
+
+17. Hapus 2 orang pegawai pegawai terakhir
+
+>< MariaDB [dbpegawai]> SELECT * FROM pegawai ORDER BY id DESC LIMIT 2;
++----+-------+-------------+-----------+-----------+------------+----------+-----------+--------------------------+
+| id | nip   | nama        | gender    | tmp_lahir | tgl_lahir  | iddivisi | idjabatan | alamat                   |
++----+-------+-------------+-----------+-----------+------------+----------+-----------+--------------------------+
+| 20 | 10020 | Umi Fatimah | Laki-Laki | Padang    | 1994-08-20 |        4 |         4 | Jl. Padang No. 30        |
+| 19 | 10019 | Tono Wijaya | Laki-Laki | Manado    | 1993-07-19 |        4 |         3 | Jl. Sam Ratulangi No. 19 |
++----+-------+-------------+-----------+-----------+------------+----------+-----------+--------------------------+
+2 rows in set (0.001 sec)
+_____________________________________________________________________________________________________________
+
+18. Gunakan alter tabel pada tabel pegawai untuk menambahkan kolom baru berat_badan dengan
+tipe data float wajib diisi, lalu input berat badan semua pegawai secara acak
+
+
+>< MariaDB [dbpegawai]> ALTER TABLE pegawai
+    -> ADD COLUMN berat_badan FLOAT NOT NULL;
+Query OK, 0 rows affected (0.016 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbpegawai]> UPDATE pegawai
+    -> SET berat_badan = ROUND(50 + (RAND() * 40), 1);
+Query OK, 20 rows affected (0.008 sec)
+Rows matched: 20  Changed: 20  Warnings: 0
+
+MariaDB [dbpegawai]> SELECT id, nama, berat_badan FROM pegawai;
++----+------------------+-------------+
+| id | nama             | berat_badan |
++----+------------------+-------------+
+|  1 | Ahmad Santoso    |        50.6 |
+|  2 | Siti Rahayu      |        76.8 |
+|  3 | Bambang Sutrisno |        62.4 |
+|  4 | Dewi Lestari     |        71.4 |
+|  5 | Eko Prasetyo     |          80 |
+|  6 | Fitriani Sari    |        55.7 |
+|  7 | Guntur Wibowo    |        68.7 |
+|  8 | Hesti Purnama    |        86.3 |
+|  9 | Irfan Maulana    |        55.4 |
+| 10 | Joko Susilo      |        88.2 |
+| 11 | Kartika Dewi     |        64.8 |
+| 12 | Luki Setiawan    |        89.3 |
+| 13 | Maya Indah       |          82 |
+| 14 | Nanda Pratama    |        52.1 |
+| 15 | Oki Nugraha      |        84.5 |
+| 16 | Putri Indah      |        56.2 |
+| 17 | Rudi Hartono     |        57.5 |
+| 18 | Sari Dewi        |        68.8 |
+| 19 | Tono Wijaya      |        81.4 |
+| 20 | Umi Fatimah      |        70.8 |
++----+------------------+-------------+
+20 rows in set (0.000 sec)
+
+___________________________________________________________________________________________________________________
+
+19. Gunakan alter tabel pada tabel pegawai untuk menambahkan kolom baru umur dengan tipe data
+integer wajib diisi, lalu input umur semua pegawai secara acak
+
+
+>< MariaDB [dbpegawai]> ALTER TABLE pegawai
+    -> ADD COLUMN umur INT NOT NULL;
+Query OK, 0 rows affected (0.017 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbpegawai]> UPDATE pegawai
+    -> SET umur = FLOOR(20 + (RAND() * 41));
+Query OK, 20 rows affected (0.007 sec)
+Rows matched: 20  Changed: 20  Warnings: 0
+
+MariaDB [dbpegawai]> SELECT id, nama, umur FROM pegawai;
++----+------------------+------+
+| id | nama             | umur |
++----+------------------+------+
+|  1 | Ahmad Santoso    |   29 |
+|  2 | Siti Rahayu      |   46 |
+|  3 | Bambang Sutrisno |   41 |
+|  4 | Dewi Lestari     |   49 |
+|  5 | Eko Prasetyo     |   60 |
+|  6 | Fitriani Sari    |   53 |
+|  7 | Guntur Wibowo    |   22 |
+|  8 | Hesti Purnama    |   56 |
+|  9 | Irfan Maulana    |   29 |
+| 10 | Joko Susilo      |   42 |
+| 11 | Kartika Dewi     |   59 |
+| 12 | Luki Setiawan    |   29 |
+| 13 | Maya Indah       |   30 |
+| 14 | Nanda Pratama    |   45 |
+| 15 | Oki Nugraha      |   31 |
+| 16 | Putri Indah      |   43 |
+| 17 | Rudi Hartono     |   22 |
+| 18 | Sari Dewi        |   42 |
+| 19 | Tono Wijaya      |   43 |
+| 20 | Umi Fatimah      |   26 |
++----+------------------+------+
+20 rows in set (0.001 sec)
+
+__________________________________________________________________________________________________________________
+
+
+20. Gunakan alter tabel pada tabel pegawai untuk mengubah nama kolom gender menjadi jenis_kelamin
+
+>< MariaDB [dbpegawai]> ALTER TABLE pegawai
+    -> CHANGE COLUMN gender jenis_kelamin ENUM('Laki-Laki', 'Perempuan') NOT NULL;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbpegawai]> DESCRIBE pegawai;
++---------------+-------------------------------+------+-----+---------+----------------+
+| Field         | Type                          | Null | Key | Default | Extra          |
++---------------+-------------------------------+------+-----+---------+----------------+
+| id            | int(11)                       | NO   | PRI | NULL    | auto_increment |
+| nip           | char(5)                       | NO   | UNI | NULL    |                |
+| nama          | varchar(30)                   | NO   |     | NULL    |                |
+| jenis_kelamin | enum('Laki-Laki','Perempuan') | NO   |     | NULL    |                |
+| tmp_lahir     | varchar(30)                   | NO   |     | NULL    |                |
+| tgl_lahir     | date                          | NO   |     | NULL    |                |
+| iddivisi      | int(11)                       | NO   | MUL | NULL    |                |
+| idjabatan     | int(11)                       | NO   | MUL | NULL    |                |
+| alamat        | text                          | YES  |     | NULL    |                |
+| berat_badan   | float                         | NO   |     | NULL    |                |
+| umur          | int(11)                       | NO   |     | NULL    |                |
++---------------+-------------------------------+------+-----+---------+----------------+
+11 rows in set (0.037 sec)
+
+__________________________________________________________________________________________________________________
+
+21. Tampilkan kolom2 tertentu di tabel pegawai (nip,nama,jenis_kelamin,alamat)
+
+>< MariaDB [dbpegawai]> SELECT nip, nama, jenis_kelamin, alamat
+    -> FROM pegawai;
++-------+------------------+---------------+--------------------------+
+| nip   | nama             | jenis_kelamin | alamat                   |
++-------+------------------+---------------+--------------------------+
+| 10001 | Ahmad Santoso    | Perempuan     | Jl. Kebon Jeruk No. 10   |
+| 10002 | Siti Rahayu      | Perempuan     | Jl. Pahlawan No. 2       |
+| 10003 | Bambang Sutrisno | Laki-Laki     | Jl. Sudirman No. 3       |
+| 10004 | Dewi Lestari     | Perempuan     | Jl. Gatot Subroto No. 4  |
+| 10005 | Eko Prasetyo     | Laki-Laki     | Jl. Diponegoro No. 5     |
+| 10006 | Fitriani Sari    | Laki-Laki     | Jl. Sudirman No. 20      |
+| 10007 | Guntur Wibowo    | Laki-Laki     | Jl. Kebon Sirih No. 7    |
+| 10008 | Hesti Purnama    | Perempuan     | Jl. Hayam Wuruk No. 8    |
+| 10009 | Irfan Maulana    | Laki-Laki     | Jl. Asia Afrika No. 9    |
+| 10010 | Joko Susilo      | Laki-Laki     | Jl. Pemuda No. 10        |
+| 10011 | Kartika Dewi     | Laki-Laki     | Jl. Pantai Kuta No. 15   |
+| 10012 | Luki Setiawan    | Laki-Laki     | Jl. Ijen No. 12          |
+| 10013 | Maya Indah       | Perempuan     | Jl. Suryakencana No. 13  |
+| 10014 | Nanda Pratama    | Laki-Laki     | Jl. BSD No. 14           |
+| 10015 | Oki Nugraha      | Laki-Laki     | Jl. Ahmad Yani No. 15    |
+| 10016 | Putri Indah      | Laki-Laki     | Jl. Raya Depok No. 25    |
+| 10017 | Rudi Hartono     | Laki-Laki     | Jl. Siliwangi No. 17     |
+| 10018 | Sari Dewi        | Perempuan     | Jl. Sudirman No. 18      |
+| 10019 | Tono Wijaya      | Laki-Laki     | Jl. Sam Ratulangi No. 19 |
+| 10020 | Umi Fatimah      | Laki-Laki     | Jl. Padang No. 30        |
++-------+------------------+---------------+--------------------------+
+20 rows in set (0.001 sec)
+
+MariaDB [dbpegawai]> SELECT nip, nama, jenis_kelamin, alamat
+    -> FROM pegawai
+    -> WHERE iddivisi = 1;
++-------+------------------+---------------+-------------------------+
+| nip   | nama             | jenis_kelamin | alamat                  |
++-------+------------------+---------------+-------------------------+
+| 10001 | Ahmad Santoso    | Perempuan     | Jl. Kebon Jeruk No. 10  |
+| 10002 | Siti Rahayu      | Perempuan     | Jl. Pahlawan No. 2      |
+| 10003 | Bambang Sutrisno | Laki-Laki     | Jl. Sudirman No. 3      |
+| 10004 | Dewi Lestari     | Perempuan     | Jl. Gatot Subroto No. 4 |
+| 10005 | Eko Prasetyo     | Laki-Laki     | Jl. Diponegoro No. 5    |
++-------+------------------+---------------+-------------------------+
+5 rows in set (0.001 sec)
+__________________________________________________________________________________________________________________
+
+
+22.  Tampilkan baris2 tertentu di tabel pegawai (yang gendernya laki2 saja)
+
+
+>< 
+
+
