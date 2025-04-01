@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM ACCESS</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 90%;
+            padding: 20px;
+            border: 1px solid #0f0;
+            box-shadow: 0 0 10px #0f0;
+        }
+        
+        h1 {
+            color: #f00;
+            margin-bottom: 30px;
+            font-size: 1.5em;
+        }
+        
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn {
+            background: transparent;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 12px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #0f0;
+            color: #000;
+        }
+        
+        .warning {
+            margin-top: 30px;
+            color: #f00;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.2em;
+            }
+            .btn {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SECURE SYSTEM ACCESS</h1>
+        
+        <div class="menu">
+            <button class="btn" onclick="window.open('/2.html')">
+                OPEN EXTERNAL LINK
+            </button>
+            
+            <button class="btn" onclick="downloadFile('full_scan.html',)">
+                DOWNLOAD SECURE DOCUMENT
+            </button>
+            
+        </div>
+        
+        <p class="warning">
+            [!] WARNING: UNAUTHORIZED ACCESS WILL BE TRACKED [!]
+        </p>
+    </div>
+
+    <script>
+        // Fungsi untuk membuat file download
+        function downloadFile(filename, text) {
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            
+            alert('Download started: ' + filename);
+        }
+    </script>
+</body>
+</html>

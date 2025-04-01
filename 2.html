@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Web Vulnerabilities</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00cc00;
+            font-family: "Courier New", monospace;
+            text-align: center;
+            font-size: 12px;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+        
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px #00cc00;
+            background: rgba(0, 0, 0, 0.8);
+            position: relative;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        
+        th, td {
+            border: 1px solid #00cc00;
+            padding: 8px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        
+        th {
+            background-color: #002200;
+        }
+        
+        a {
+            color: #00cc00;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .background-logo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            z-index: -1;
+            width: 300px;
+        }
+
+        @media (max-width: 600px) {
+            table {
+                font-size: 10px;
+            }
+            th, td {
+                padding: 5px;
+            }
+            .background-logo {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Vulnerabilities</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Parrot_Logo.png" class="background-logo" alt="Parrot OS Logo">
+    <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>URL</th>
+                    <th>Exploit Type</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="data-table">
+            
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const data = [
+            [1, "https://simira.nurulfikri.ac.id/admin/login/?next=/admin/", "dirscan/debug/readme", "2025-03-29 19:15:41"],
+            [2, "https://nurulfikri.ac.id/wp-content/uploads/2022/11/", "dirscan/debug/readme", "2025-03-29 19:16:11"],
+            [3, "https://nurulfikri.ac.id/wp-content/uploads/2025/03/", "dirscan/directory/default", "2025-03-29 19:16:15"],
+            [4, "https://nurulfikri.ac.id/wp-content/uploads/2022/", "dirscan/directory/default", "2025-03-29 19:16:32"],
+            [5, "https://nurulfikri.ac.id/wp-content/uploads/2020/09/", "dirscan/directory/default", "2025-03-29 19:16:43"],
+        ];
+        
+        const tableBody = document.getElementById("data-table");
+        
+        data.forEach(row => {
+            const tr = document.createElement("tr");
+            row.forEach((cell, index) => {
+                const td = document.createElement("td");
+                if (index === 1) {
+                    const a = document.createElement("a");
+                    a.href = cell;
+                    a.textContent = cell;
+                    a.target = "_blank";
+                    td.appendChild(a);
+                } else {
+                    td.textContent = cell;
+                }
+                tr.appendChild(td);
+            });
+            tableBody.appendChild(tr);
+        });
+    </script>
+</body>
+</html>
