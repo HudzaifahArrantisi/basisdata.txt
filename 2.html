@@ -57,6 +57,23 @@
             width: 300px;
         }
 
+        .nav-button {
+            background-color: #002200;
+            color: #00cc00;
+            border: 1px solid #00cc00;
+            padding: 10px 20px;
+            margin: 20px;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            transition: all 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: #00cc00;
+            color: black;
+            box-shadow: 0 0 10px #00cc00;
+        }
+
         @media (max-width: 600px) {
             table {
                 font-size: 10px;
@@ -88,6 +105,7 @@
             </tbody>
         </table>
     </div>
+    <button class="nav-button" onclick="window.location.href='hallo.html'">Go to Hallo Page</button>
     <script>
         const data = [
             [1, "https://simira.nurulfikri.ac.id/admin/login/?next=/admin/", "dirscan/debug/readme", "2025-03-29 19:15:41"],
