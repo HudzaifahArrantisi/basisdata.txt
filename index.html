@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM ACCESS</title>
+    <title>XXXX</title>
     <style>
         body {
             background-color: #000;
@@ -46,6 +46,9 @@
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         
         .btn:hover {
@@ -75,37 +78,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>SECURE SYSTEM ACCESS</h1>
+        <h1>X-X-X-X-X-X</h1>
         
         <div class="menu">
-            <button class="btn" onclick="window.open('/2.html')">
+            <a href="2.html" class="btn">
                 OPEN EXTERNAL LINK
-            </button>
-            
-            <button class="btn" onclick="downloadFile('full_scan.html',)">
-                DOWNLOAD SECURE DOCUMENT
-            </button>
-            
+            </a>
         </div>
         
         <p class="warning">
-            [!] WARNING: UNAUTHORIZED ACCESS WILL BE TRACKED [!]
+            [!] X-X-X-X-X-X [!]
         </p>
     </div>
-
-    <script>
-        // Fungsi untuk membuat file download
-        function downloadFile(filename, text) {
-            const element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-            element.setAttribute('download', filename);
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-            
-            alert('Download started: ' + filename);
-        }
-    </script>
 </body>
 </html>
